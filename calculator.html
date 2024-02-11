@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  const oP = prompt('Pilih operasi (*,/,+,-) : ');
+  const isNumA = parseFloat(prompt('Masukan Angka 1 : '));
+  const isNumB = parseFloat(prompt('Masukan Angka 2 : '));
+
+  if (oP == '*') {
+  alert(`Result is ${isNumA * isNumB}`);
+  } else if(oP == '/'){
+  alert(`Result is ${isNumA / isNumB}`);
+  } else if(oP == '+'){
+  alert(`Result is ${isNumA + isNumB}`);
+  } else if(oP == '-'){
+  alert(`Result is ${isNumA - isNumB}`);
+  };
+</script>
+</body>
+</html>
