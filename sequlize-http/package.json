@@ -1,0 +1,16 @@
+{
+  "name": "sequlize-http",
+  "version": "1.0.0",
+  "description": "learning sequlize http",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rulanugrh",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.2",
+    "sequelize": "^6.36.0"
+  }
+}
