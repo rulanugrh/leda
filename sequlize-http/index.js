@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
     })
 
     if (req.url === "/" && req.method === "GET") {
-        getEvents(req, res)
+        getEvents(req, res) 
     } else if (req.url === "/create" && req.method === "POST") {
         createEvent(req, res)
     } else if (req.url === "/find/:id" && req.method === "GET") {

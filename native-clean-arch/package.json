@@ -1,0 +1,19 @@
+{
+  "name": "native-clean-arch",
+  "version": "1.0.0",
+  "description": "example learn about native clean arch ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/rulanugrh/leda"
+  },
+  "author": "rulanugrh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.2",
+    "sequelize": "^6.37.0"
+  }
+}
