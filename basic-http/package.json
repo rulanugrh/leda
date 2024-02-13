@@ -1,5 +1,6 @@
 {
   "name": "learnjs",
+  "type": "module",
   "version": "1.0.0",
   "description": "learn javascript",
   "main": "main.js",
