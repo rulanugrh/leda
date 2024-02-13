@@ -9,7 +9,10 @@ export const createCategory = async(req, res) => {
         res.end(JSON.stringify({
             'code': 200,
             'msg': 'success create category',
-            'data': result
+            'data': {
+                'name': result.name,
+                'desc': result.desc,
+            }
         }))
 
     } catch (error) {
@@ -69,5 +72,29 @@ export const getCategoryByID = async(req, res) => {
             'msg': 'data not found',
             'error': error.message
         }))
+    }
+}
+
+export const deleteCategory = async(req, res) => {
+    try {
+        await category.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.statusCode(200)
+        res.end(JSON.stringify({
+            'code': 200,
+            'msg': 'success delete category'
+        }))
+
+    } catch (error) {
+        res.statusCode(500)
+        res.end(JSON.stringify({
+            'code': 500,
+            'msg': 'cant delete category',
+            'error': error.message
+        }))       
     }
 }

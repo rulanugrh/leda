@@ -1,4 +1,4 @@
-import { createCategory,  getCategory, getCategoryByID } from "../controller/category";
+import { createCategory,  deleteCategory,  getCategory, getCategoryByID } from "../controller/category";
 
 export const CategoryRouter = async(req, res) => {
     if (req.url === "/api/v1/category" && req.method === "GET") {
@@ -7,6 +7,8 @@ export const CategoryRouter = async(req, res) => {
         createCategory(req, res)
     } else if (req.url === "/api/v1/category/find/:id" && req.method === "GET") {
         getCategoryByID(req, res)
+    } else if (req.url === "/api/v1/category/delete/:id" && req.method === "DELETE") {
+        deleteCategory(req, res)
     } else {
         res.statusCode(404)
         res.end(JSON.stringify({
