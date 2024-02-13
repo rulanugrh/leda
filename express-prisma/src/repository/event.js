@@ -1,4 +1,3 @@
-
 export const createEvent = async (prisma, name, desc, categoryID) =>{
     const result = await prisma.event.create({
         data: {
