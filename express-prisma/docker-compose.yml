@@ -1,0 +1,39 @@
+version: '3.9'
+services:
+  db:
+    container_name: db
+    hostname: db
+    image: postgres:alpine
+    ports:
+      - "127.0.0.1:5432:5432"
+    environtment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    restart: unless-stopped
+    networks:
+      - jsconnect
+
+  app:
+    container_name: app-js
+    hostname: app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - EXPOSE_PORT=${APP_PORT}
+    environment:
+      - APP_PORT=${APP_PORT}
+      - APP_ORIGIN=${APP_ORIGIN}
+      - DATABASE_URL=${DATABASE_URL}
+    restart: unless-stopped
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    depends_on:
+      - db
+    networks:
+      - jsconnect
+
+networks:
+  jsconnect:
+    driver: bridge
