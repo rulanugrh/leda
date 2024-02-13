@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { createUser, getUser } from "../repository/user";
+import bcrypt from "bcrypt"
 
 const prisma = new PrismaClient()
 
@@ -11,7 +12,8 @@ const response = {
 export const create = async(req) => {
     const {name, email, roleID, password } = req.body
 
-    const result = await createUser(prisma, name, email, password, roleID)
+    const hashPassword = bcrypt.hash(password, 14)
+    const result = await createUser(prisma, name, email, hashPassword, roleID)
 
     response.name = result.name
     response.email = result.email
