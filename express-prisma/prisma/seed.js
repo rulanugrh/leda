@@ -13,6 +13,17 @@ const categoryData = [
     }
 ]
 
+const roleData = [
+    {
+        name: "Administrator",
+        desc: "Ini adalah role admin"
+    },
+    {
+        name: "User",
+        desc: "Ini adalah role khusus user"
+    }
+]
+
 async function main() {
     console.log("Start seeder to db")
     for (const cate of categoryData) {
@@ -20,6 +31,13 @@ async function main() {
             data: cate,
         })
         console.log(`Create category by id: ${category.id}`)
+    }
+
+    for (const r of roleData) {
+        const role = await prisma.role.create({
+            data: r
+        })
+        console.log(`Create role by id: ${role.id}`)
     }
 
     console.log("Seeding finished...")
