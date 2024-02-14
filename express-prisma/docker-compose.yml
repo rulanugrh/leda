@@ -24,6 +24,7 @@ services:
         - EXPOSE_PORT=${APP_PORT}
     environment:
       - APP_PORT=${APP_PORT}
+      - APP_PORT=${APP_SECRET}
       - APP_ORIGIN=${APP_ORIGIN}
       - DATABASE_URL=${DATABASE_URL}
     restart: unless-stopped
