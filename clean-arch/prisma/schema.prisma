@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updateAt DateTime @updateAt
+  name String
+  desc String
+  price Int
+  comment Comment[]
+  category Category @relation(fields: [categoryID], references: [id])
+  categoryID Int
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updateAt DateTime @updateAt
+  comment String
+  event Event @relation(fields: [eventID], references: [id])
+  eventID Int
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updateAt DateTime @updateAt
+  name String @db.varchar(255)
+  desc String @db.varchar(255)
+  event Event[]
+}

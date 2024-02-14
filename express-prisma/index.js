@@ -18,7 +18,10 @@ app.use('/api/v1/event', verify, event)
 app.use('/api/v1/category', verify, category)
 app.use('/api/v1/user', user)
 
-app.listen(process.env.APP_PORT, () => {
+app.listen(process.env.APP_PORT, (err) => {
+    if (err) {
+        console.log(`Server error, because: ${err.message}`)
+    }
     console.log(`Server running at :${process.env.APP_PORT}`)
 })
 
