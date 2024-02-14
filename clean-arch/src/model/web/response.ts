@@ -1,4 +1,4 @@
-export class Response {
+export class Success {
     msg: string
     code: number
     data: any
@@ -7,7 +7,7 @@ export class Response {
 export class Failure {
     msg: string
     code: string
-    error: string
+    error: unknown
 }
 
 export class CreateEvent {
