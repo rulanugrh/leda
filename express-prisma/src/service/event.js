@@ -22,6 +22,10 @@ export const create = async (req) => {
 export const findbyId = async(id) => {
     const result = await getEventByID(prisma, id)
 
+    if (result == null ) {
+        return "data not found"
+    }
+
     response.name = result.name
     response.desc = result.desc
     response.categoryID = result.categoryID
@@ -31,6 +35,11 @@ export const findbyId = async(id) => {
 
 export const findAll = async () => {
     const result = await getEventAll(prisma)
+    
+    if (result == null ) {
+        return "data not found"
+    }
+    
     return result
 }
 

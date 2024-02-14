@@ -1,4 +1,14 @@
 export const createEvent = async (prisma, name, desc, categoryID) =>{
+    const find = await prisma.event.findUnique({
+        where: {
+            name: name
+        }
+    })
+
+    if (find != null) {
+        return "data has been created"
+    }
+
     const result = await prisma.event.create({
         data: {
             name,
@@ -17,11 +27,20 @@ export const getEventByID = async(prisma, idEvent) => {
         }
     })
 
+    if (result == null) {
+        return "data not found"
+    }
+
     return result
 }
 
 export const getEventAll = async (prisma) => {
     const result = await prisma.event.findMany()
+    if (result == null) {
+
+        return "data not found"
+    }
+
     return result
 }
 
