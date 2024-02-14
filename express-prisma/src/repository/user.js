@@ -18,3 +18,17 @@ export const getUser = async(prisma, ids) => {
 
     return result
 }
+
+export const getEmail = async(prisma, emailUser) => {
+    const result = await prisma.user.findUnique({
+        where: {
+            email: emailUser
+        }
+    })
+
+    if (!result) {
+        console.error("error, data not found")
+    }
+
+    return result
+}

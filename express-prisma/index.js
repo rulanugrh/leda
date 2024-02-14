@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors"
+import { verify } from "./src/middleware/verify"
 
 var event = require("./src/route/event")
 var category = require("./src/route/category")
@@ -13,8 +14,8 @@ var corsOptions = {
 const app = express()
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use('/api/v1/event', event)
-app.use('/api/v1/category', category)
+app.use('/api/v1/event', verify, event)
+app.use('/api/v1/category', verify, category)
 app.use('/api/v1/user', user)
 
 app.listen(process.env.APP_PORT, () => {

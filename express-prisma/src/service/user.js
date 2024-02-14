@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { createUser, getUser } from "../repository/user";
+import { createUser, getEmail, getUser } from "../repository/user";
 import bcrypt from "bcrypt"
 
 const prisma = new PrismaClient()
@@ -28,6 +28,16 @@ export const find = async(id) => {
     response.name = result.name
     response.email = result.email
     response.roleID = result.roleID
+
+    return response
+}
+
+
+export const findEmail = async(req) => {
+    const result = await getEmail(prisma, req.body.email)
+
+    response.email = result.email
+    response.name = result.name
 
     return response
 }
