@@ -1,12 +1,12 @@
-import { IsString } from "class-validator"
+import { IsInt, IsString } from "class-validator"
 import { Event } from "./event"
 
 export class CommentReq {
     @IsString()
-    name: string
+    comment: string
 
-    @IsString()
-    desc: string
+    @IsInt()
+    event_id: number
 }
 
 export class Comment {
