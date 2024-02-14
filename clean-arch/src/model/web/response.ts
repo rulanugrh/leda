@@ -38,12 +38,7 @@ export class GetCategory {
     id: number
     name: string
     desc: string
-    event: {
-        id: number
-        name: string
-        desc: string
-        price: string
-    }
+    event: GetEvent[]
 }
 
 export class Comment {

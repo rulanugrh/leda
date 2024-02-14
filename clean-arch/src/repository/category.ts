@@ -3,6 +3,7 @@ import { Category, CategoryReq } from "../model/entity/category";
 
 export interface CategoryRepository {
     Create(req: CategoryReq): Promise<Category>
+    FindId(id: string): Promise<Category>
 }
 
 export class NewCategoryRepository implements CategoryRepository {
@@ -18,5 +19,19 @@ export class NewCategoryRepository implements CategoryRepository {
         } catch (error) {
             throw new Error(`Something error from create category : ${error}`)
         }    
+    }
+    async FindId(id: string): Promise<Category> {
+        try {
+            const result = await this.prisma.category.findUnique({
+                where: {
+                    id: Number(id)
+                }, include: {
+                    event: true
+                }
+            })
+            return result
+        } catch (error) {
+            throw new Error(`Something error from find by id category : ${error}`)
+        }
     }
 }
