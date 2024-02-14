@@ -71,7 +71,7 @@ export class NewEventRepository implements EventRepository {
                 }
             })
 
-            var response: Events
+           
             var comments: Comment[]
             for (const data of result.comment) {
                 var comment: Comment
@@ -79,14 +79,19 @@ export class NewEventRepository implements EventRepository {
                 comment.eventID = data.eventID
                 comments.push(comment)
             }
+            
+            var response: Events = {
+                id: result.id,
+                name: result.name,
+                price: result.price,
+                desc: result.desc,
+                category: {
+                    name: result.category.name,
+                    desc: result.category.desc
+                },
+                comment: comments,
 
-            response.id = result.id
-            response.name = result.name
-            response.price = result.price
-            response.desc = result.desc
-            response.category.name = result.category.name
-            response.category.desc = result.category.desc
-            response.comment = comments
+            }
 
             return response
         } catch (error) {

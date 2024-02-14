@@ -40,7 +40,7 @@ export class NewCommentRepository implements CommentRepository {
 
                 response.push(res)
             }
-            
+
             return response
         } catch (error) {
             throw new Error(`error from find all comment: ${error}`)
@@ -58,12 +58,12 @@ export class NewCommentRepository implements CommentRepository {
 
             })
 
-            var response: Comments
+            var response: Comments = {
+                comment: result.comment,
+                id: result.id,
+                eventName: result.event.name
+            }
             
-            response.comment = result.comment
-            response.id = result.id
-            response.eventName = result.event.name
-
             return response
         } catch (error) {
             throw new Error(`error from find by id comment :${error}`)
