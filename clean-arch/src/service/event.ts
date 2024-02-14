@@ -1,9 +1,9 @@
-import { CreateEvent, GetEvent, Comment } from "../model/entity/dao";
-import { EventCreate } from "../model/entity/event";
-import { EventRepository } from "../repository/event";
+import { EventReq } from "../model/entity/event"
+import { Comment, CreateEvent, GetEvent } from "../model/web/response"
+import { EventRepository } from "../repository/event"
 
 export interface EventService {
-    Create(req: EventCreate): Promise<CreateEvent>
+    Create(req: EventReq): Promise<CreateEvent>
     Find(): Promise<GetEvent[]>
     FindID(id: string): Promise<GetEvent>
 }
@@ -17,15 +17,15 @@ export class NewEventService implements EventService {
         this.event.repo = event
     }
 
-    async Create(req: EventCreate): Promise<CreateEvent> {
+    async Create(req: EventReq): Promise<CreateEvent> {
         try {
             const data = await this.event.repo.Create(req)
-            
+
             const response: CreateEvent = {
                 name: data.name,
                 desc: data.desc,
                 price: data.price,
-                categoryid: data.category_id
+                category: data.category.name
             }
 
             return response
@@ -43,8 +43,10 @@ export class NewEventService implements EventService {
             for (const event of data) {
                 var res: GetEvent
                 for (const comm of event.comment) {
-                    var comment: Comment
-                    comment.comment = comm.comment
+                    var comment: Comment = {
+                        comment: comm.comment,
+                        event: comm.event.name
+                    }
                     comments.push(comment)
                 }
 
@@ -72,7 +74,7 @@ export class NewEventService implements EventService {
             for (const d of data.comment) {
                 var comment: Comment = {
                     comment: d.comment,
-                    event: d.eventID
+                    event: d.event.name
                 }
 
                 comments.push(comment)

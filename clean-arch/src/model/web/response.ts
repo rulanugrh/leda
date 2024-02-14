@@ -14,7 +14,7 @@ export class CreateEvent {
     name: string
     desc: string
     price: number
-    categoryid: number
+    category: string
 }
 
 export class GetEvent {
@@ -47,7 +47,7 @@ export class GetCategory {
 }
 
 export class Comment {
-    event: number
+    event: string
     comment: string
 }
 

@@ -1,9 +1,9 @@
-import { CreateComment, GetComment } from "../model/entity/dao";
-import { Comment, Comments } from "../model/entity/event";
-import { CommentRepository } from "../repository/comment";
+import { CommentReq } from "../model/entity/comment"
+import { CreateComment, GetComment } from "../model/web/response"
+import { CommentRepository } from "../repository/comment"
 
 export interface CommentService {
-    Create(req: Comment): Promise<CreateComment>
+    Create(req: CommentReq): Promise<CreateComment>
     Find(): Promise<GetComment[]>
     FindId(id: string): Promise<GetComment>
 }
@@ -17,15 +17,15 @@ export class NewCommentService implements CommentRepository {
         this.comm.repo = repo
     }
 
-    async Create(req: Comment): Promise<Comment> {
+    async Create(req: CommentReq): Promise<CreateComment> {
         
     }
 
-    async Find(): Promise<Comments[]> {
+    async Find(): Promise<GetComment[]> {
         
     }
 
-    async FindID(id: string): Promise<Comments> {
+    async FindID(id: string): Promise<GetComment> {
         
     }
 }
