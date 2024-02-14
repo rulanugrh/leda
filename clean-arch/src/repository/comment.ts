@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { Comment, Comments } from "../model/entity/dto";
+import { Comment, CommentReq } from "../model/entity/comment";
 
 export interface CommentRepository {
-    Create(req: Comment): Promise<Comment>
-    Find(): Promise<Comments[]>
-    FindID(id: string): Promise<Comments>
+    Create(req: CommentReq): Promise<Comment>
+    Find(): Promise<Comment[]>
+    FindID(id: string): Promise<Comment>
 }
 
 export class NewCommentRepository implements CommentRepository {
@@ -13,7 +13,7 @@ export class NewCommentRepository implements CommentRepository {
         this.prisma = prisma
     }
 
-    async Create(req: Comment): Promise<Comment> {
+    async Create(req: CommentReq): Promise<Comment> {
         try {
             const result = await this.prisma.comment.create(req)
             return result
@@ -23,31 +23,21 @@ export class NewCommentRepository implements CommentRepository {
         
     }
 
-    async Find(): Promise<Comments[]> {
+    async Find(): Promise<Comment[]> {
         try {
             const result = await this.prisma.comment.findMany({
                 include: {
                     event: true,
                 }
             })
+            return result
 
-            var response: Comments[]
-            for (const data of result) {
-                var res: Comments
-                res.comment = data.comment
-                res.eventName = data.event.name
-                res.id = data.id
-
-                response.push(res)
-            }
-
-            return response
         } catch (error) {
             throw new Error(`error from find all comment: ${error}`)
         }
     }
 
-    async FindID(id: string): Promise<Comments> {
+    async FindID(id: string): Promise<Comment> {
         try {
             const result = await this.prisma.comment.findUnique({
                 where: {
@@ -58,13 +48,7 @@ export class NewCommentRepository implements CommentRepository {
 
             })
 
-            var response: Comments = {
-                comment: result.comment,
-                id: result.id,
-                eventName: result.event.name
-            }
-            
-            return response
+            return result
         } catch (error) {
             throw new Error(`error from find by id comment :${error}`)
         }

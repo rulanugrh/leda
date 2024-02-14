@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { Category } from "../model/entity/dto";
+import { Category, CategoryReq } from "../model/entity/category";
 
 export interface CategoryRepository {
-    Create(req: Category): Promise<Category>
+    Create(req: CategoryReq): Promise<Category>
 }
 
 export class NewCategoryRepository implements CategoryRepository {
@@ -11,7 +11,7 @@ export class NewCategoryRepository implements CategoryRepository {
         this.prisma = prisma
     }
 
-    async Create(req: Category): Promise<Category> {
+    async Create(req: CategoryReq): Promise<Category> {
         try {
             const result = await this.prisma.category.create(req)
             return result

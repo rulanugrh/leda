@@ -1,5 +1,5 @@
 import { CreateEvent, GetEvent, Comment } from "../model/entity/dao";
-import { EventCreate } from "../model/entity/dto";
+import { EventCreate } from "../model/entity/event";
 import { EventRepository } from "../repository/event";
 
 export interface EventService {

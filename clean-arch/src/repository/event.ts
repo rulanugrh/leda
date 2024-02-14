@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { Comment, EventCreate, Events } from "../model/entity/dto";
+import { Event, EventReq } from "../model/entity/event";
 
 export interface EventRepository {
-    Create(req: EventCreate): Promise<EventCreate>
-    Find(): Promise<Events[]>
-    FindId(id: string): Promise<Events>
+    Create(req: EventReq): Promise<Event>
+    Find(): Promise<Event[]>
+    FindId(id: string): Promise<Event>
 }
 
 export class NewEventRepository implements EventRepository {
@@ -13,7 +13,7 @@ export class NewEventRepository implements EventRepository {
         this.prisma = prisma
     }
     
-    async Create(req: EventCreate): Promise<EventCreate> {
+    async Create(req: EventReq): Promise<Event> {
        try {
             const result = await this.prisma.event.create(req)
             return result
@@ -22,7 +22,7 @@ export class NewEventRepository implements EventRepository {
        }
     }
 
-    async Find(): Promise<Events[]> {
+    async Find(): Promise<Event[]> {
         try {
             const result = await this.prisma.event.findMany({
                 include: {
@@ -30,37 +30,14 @@ export class NewEventRepository implements EventRepository {
                     category: true
                 }
             })
-            var response: Events[]
-            var comm: Comment[]
-
-            for (const r of result) {
-                var res: Events
-
-                for (const com of r.comment) {
-                    var coms: Comment
-                    coms.comment = com.comment
-                    coms.eventID = com.eventID
-
-                    comm.push(coms)
-                }
-
-                res.id = r.id
-                res.name = r.name
-                res.price = r.price
-                res.desc = r.desc
-                res.category.name = r.category.name
-                res.category.desc = r.category.desc
-                res.comment = comm
-
-                response.push(res)
-            }
-            return response
+            
+            return result
         } catch (error) {
             throw new Error(`something error from find all: ${error}`)
         }
     }
 
-    async FindId(id: string): Promise<Events> {
+    async FindId(id: string): Promise<Event> {
         try {
             const result = await this.prisma.event.findUnique({
                 where: {
@@ -71,29 +48,7 @@ export class NewEventRepository implements EventRepository {
                 }
             })
 
-           
-            var comments: Comment[]
-            for (const data of result.comment) {
-                var comment: Comment
-                comment.comment = data.comment
-                comment.eventID = data.eventID
-                comments.push(comment)
-            }
-            
-            var response: Events = {
-                id: result.id,
-                name: result.name,
-                price: result.price,
-                desc: result.desc,
-                category: {
-                    name: result.category.name,
-                    desc: result.category.desc
-                },
-                comment: comments,
-
-            }
-
-            return response
+            return result
         } catch (error) {
             throw new Error(`errro from find by id event: ${error}`)
         }
