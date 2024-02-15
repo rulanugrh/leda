@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../node_modules/.prisma/client"
 import { Event, EventReq } from "../model/entity/event";
 
 export interface EventRepository {
@@ -8,10 +8,7 @@ export interface EventRepository {
 }
 
 export class NewEventRepository implements EventRepository {
-    prisma: PrismaClient
-    constructor(prisma: PrismaClient) {
-        this.prisma = prisma
-    }
+    constructor(private prisma: PrismaClient) {}
     
     async Create(req: EventReq): Promise<Event> {
        try {

@@ -7,18 +7,15 @@ export interface CategoryService {
     FindId(id: string): Promise<GetCategory>
 }
 
-class category {
-    repo: CategoryRepository
-}
 export class NewCategoryService implements CategoryService {
-    cate: category
+    private cate: CategoryRepository
     constructor(repo: CategoryRepository) {
-        this.cate.repo = repo
+        this.cate = repo
     }
 
     async Create(req: CategoryReq): Promise<CreateCategory> {
         try {
-            const data = await this.cate.repo.Create(req)
+            const data = await this.cate.Create(req)
             const response: CreateCategory = {
                 name: data.name,
                 desc: data.desc
@@ -32,7 +29,7 @@ export class NewCategoryService implements CategoryService {
 
     async FindId(id: string): Promise<GetCategory> {
         try {
-            const data = await this.cate.repo.FindId(id)
+            const data = await this.cate.FindId(id)
             var events: GetEvent[]
             var comments: GetComment[]
             for (const d of data.event) {

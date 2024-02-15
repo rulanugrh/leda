@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../node_modules/.prisma/client"
 import { Category, CategoryReq } from "../model/entity/category";
 
 export interface CategoryRepository {
@@ -7,10 +7,7 @@ export interface CategoryRepository {
 }
 
 export class NewCategoryRepository implements CategoryRepository {
-    prisma: PrismaClient
-    constructor(prisma: PrismaClient) {
-        this.prisma = prisma
-    }
+    constructor(private prisma: PrismaClient) {}
 
     async Create(req: CategoryReq): Promise<Category> {
         try {

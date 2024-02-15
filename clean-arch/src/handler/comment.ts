@@ -11,10 +11,7 @@ export interface CommentHandler {
 }
 
 export class NewCommentHandler implements CommentHandler {
-    serv: CommentService
-    constructor(serv: CommentService) {
-        this.serv = serv
-    }
+    constructor(private serv: CommentService) {}
 
     async Create(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<Response<any, Record<string, any>>> {
         try {

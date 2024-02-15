@@ -1,6 +1,6 @@
 import express from "express"
 import { NewEventRepository } from "./src/repository/event"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "./node_modules/.prisma/client"
 import { NewEventService } from "./src/service/event"
 import { NewEventHandler } from "./src/handler/event"
 import { EventRouter } from "./src/route/event"

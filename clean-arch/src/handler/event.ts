@@ -12,10 +12,7 @@ export interface EventHandler {
 }
 
 export class NewEventHandler implements EventHandler {
-    service: EventService
-    constructor (service: EventService) {
-        this.service = service
-    }
+    constructor (private service: EventService) {}
 
     async Create(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<Response<any, Record<string, any>>> {
         try {

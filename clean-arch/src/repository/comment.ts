@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../node_modules/.prisma/client"
 import { Comment, CommentReq } from "../model/entity/comment";
 
 export interface CommentRepository {
@@ -8,10 +8,7 @@ export interface CommentRepository {
 }
 
 export class NewCommentRepository implements CommentRepository {
-    prisma: PrismaClient
-    constructor(prisma: PrismaClient) {
-        this.prisma = prisma
-    }
+    constructor(private prisma: PrismaClient) {}
 
     async Create(req: CommentReq): Promise<Comment> {
         try {

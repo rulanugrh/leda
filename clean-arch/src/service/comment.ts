@@ -8,18 +8,15 @@ export interface CommentService {
     FindId(id: string): Promise<GetComment>
 }
 
-class comment {
-    repo: CommentRepository
-}
 export class NewCommentService implements CommentService {
-    comm: comment
+    private comm: CommentRepository
     constructor(repo: CommentRepository) {
-        this.comm.repo = repo
+        this.comm = repo
     }
 
     async Create(req: CommentReq): Promise<CreateComment> {
         try {
-            const data = await this.comm.repo.Create(req)
+            const data = await this.comm.Create(req)
             const response: CreateComment = {
                 comment: data.comment,
                 event: data.event.name,
@@ -33,7 +30,7 @@ export class NewCommentService implements CommentService {
 
     async Find(): Promise<GetComment[]> {
         try {
-            const data = await this.comm.repo.Find()
+            const data = await this.comm.Find()
             var response: GetComment[]
             for (const d of data) {
                 var res: GetComment = {
@@ -53,7 +50,7 @@ export class NewCommentService implements CommentService {
 
     async FindId(id: string): Promise<GetComment> {
         try {
-            const data = await this.comm.repo.FindID(id)
+            const data = await this.comm.FindID(id)
             const response: GetComment = {
                 id: data.id,
                 event: data.event.name,

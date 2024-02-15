@@ -7,19 +7,16 @@ export interface EventService {
     Find(): Promise<GetEvent[]>
     FindID(id: string): Promise<GetEvent>
 }
-class event {
-    repo: EventRepository
-}
 
 export class NewEventService implements EventService {
-    event: event    
+    private event: EventRepository
     constructor(event: EventRepository) {
-        this.event.repo = event
+        this.event = event
     }
 
     async Create(req: EventReq): Promise<CreateEvent> {
         try {
-            const data = await this.event.repo.Create(req)
+            const data = await this.event.Create(req)
 
             const response: CreateEvent = {
                 name: data.name,
@@ -36,7 +33,7 @@ export class NewEventService implements EventService {
 
     async Find(): Promise<GetEvent[]> {
         try {
-            const data = await this.event.repo.Find()
+            const data = await this.event.Find()
             var response: GetEvent[]
             var comments: Comment[]
 
@@ -69,7 +66,7 @@ export class NewEventService implements EventService {
 
     async FindID(id: string): Promise<GetEvent> {
         try {
-            const data = await this.event.repo.FindId(id)
+            const data = await this.event.FindId(id)
             var comments: Comment[]
             for (const d of data.comment) {
                 var comment: Comment = {
