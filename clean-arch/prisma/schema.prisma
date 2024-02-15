@@ -40,3 +40,23 @@ model Category {
   desc String @db.varchar(255)
   event Event[]
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updateAt DateTime @updateAt
+  name String @db.varchar(255)
+  email String @unique
+  password String
+  role Role @relation(fields: [roleID], refernces: [id])
+  roleID Int
+}
+
+model Role {
+  Id int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updateAt DateTime @updateAt
+  name String 
+  desc String @db.varchar(255)
+  user User[]
+}
