@@ -2,8 +2,8 @@ import { EventHandler } from "../handler/event";
 import express from "express"
 
 export class EventRouter  {
-    handler: EventHandler
-    express: express.Application
+    private handler: EventHandler
+    private express: express.Application
     
     constructor(handler: EventHandler, express: express.Application) {
         this.handler = handler

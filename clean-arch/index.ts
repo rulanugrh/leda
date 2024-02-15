@@ -9,6 +9,10 @@ import { NewCommentService } from "./src/service/comment"
 import { NewCommentHandler } from "./src/handler/comment"
 import { CommentRouter } from "./src/route/comment"
 import "dotenv/config"
+import { NewCategoryRepository } from "./src/repository/category"
+import { NewCategoryService } from "./src/service/category"
+import { NewCategoryHandler } from "./src/handler/category"
+import { CategoryRoute } from "./src/route/category"
 
 const app: express.Application = express()
 const prisma = PrismaClient()
@@ -23,7 +27,12 @@ const commentService = new NewCommentService(commentRepository)
 const commentHandler = new NewCommentHandler(commentService)
 const commentRoute = new CommentRouter(commentHandler, app)
 
-app.use(eventRoute.configRoutes, commentRoute.configRoutes)
+const categoryRepository = new NewCategoryRepository(prisma)
+const categoryService = new NewCategoryService(categoryRepository)
+const categoryHandler = new NewCategoryHandler(categoryService)
+const categoryRoute = new CategoryRoute(categoryHandler, app)
+
+app.use(eventRoute.configRoutes(), commentRoute.configRoutes(), categoryRoute.configRoute())
 
 app.listen(process.env.APP_PORT, () => {
     console.log(`Server running at port :${process.env.APP_PORT}`)
