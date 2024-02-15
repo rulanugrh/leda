@@ -13,6 +13,10 @@ import { NewCategoryRepository } from "./src/repository/category"
 import { NewCategoryService } from "./src/service/category"
 import { NewCategoryHandler } from "./src/handler/category"
 import { CategoryRoute } from "./src/route/category"
+import { NewUserRepository } from "./src/repository/user"
+import { NewUserService } from "./src/service/user"
+import { NewUserHandler } from "./src/handler/user"
+import { UserRouter } from "./src/route/user"
 
 const app: express.Application = express()
 const prisma = PrismaClient()
@@ -32,7 +36,12 @@ const categoryService = new NewCategoryService(categoryRepository)
 const categoryHandler = new NewCategoryHandler(categoryService)
 const categoryRoute = new CategoryRoute(categoryHandler, app)
 
-app.use(eventRoute.configRoutes(), commentRoute.configRoutes(), categoryRoute.configRoute())
+const userRepository = new NewUserRepository(prisma)
+const userService = new NewUserService(userRepository)
+const userHandler = new NewUserHandler(userService)
+const userRouter = new UserRouter(userHandler, app)
+
+app.use(eventRoute.configRoutes(), commentRoute.configRoutes(), categoryRoute.configRoute(), userRouter.configRoutes())
 
 app.listen(process.env.APP_PORT, () => {
     console.log(`Server running at port :${process.env.APP_PORT}`)
