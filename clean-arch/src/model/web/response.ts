@@ -56,3 +56,9 @@ export class GetComment {
     event: string
     comment: string
 }
+
+export class UserResponse {
+    id: number
+    name: string
+    email: string
+}

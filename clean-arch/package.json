@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.9.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.11.17",
+    "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "express": "^4.18.2",
