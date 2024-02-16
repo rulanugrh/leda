@@ -1,5 +1,5 @@
 import { UserLogin, UserReq } from "../model/entity/user";
-import { Failure, UserResponse } from "../model/web/response";
+import { UserResponse } from "../model/web/response";
 import { UserRepository } from "../repository/user";
 import bcrypt from "bcrypt"
 

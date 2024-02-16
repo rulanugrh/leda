@@ -17,9 +17,11 @@ import { NewUserRepository } from "./src/repository/user"
 import { NewUserService } from "./src/service/user"
 import { NewUserHandler } from "./src/handler/user"
 import { UserRouter } from "./src/route/user"
+import { CORSMiddleware } from "./src/middleware/cors"
 
 const app: express.Application = express()
 const prisma = PrismaClient()
+const CorsMiddlewae = new CORSMiddleware()
 
 const eventRepository = new NewEventRepository(prisma)
 const eventService = new NewEventService(eventRepository)
@@ -41,6 +43,7 @@ const userService = new NewUserService(userRepository)
 const userHandler = new NewUserHandler(userService)
 const userRouter = new UserRouter(userHandler, app)
 
+app.use(CorsMiddlewae.cors)
 app.use(eventRoute.configRoutes(), commentRoute.configRoutes(), categoryRoute.configRoute(), userRouter.configRoutes())
 
 app.listen(process.env.APP_PORT, () => {
