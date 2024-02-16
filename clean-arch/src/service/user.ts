@@ -1,5 +1,5 @@
 import { UserLogin, UserReq } from "../model/entity/user";
-import { UserResponse } from "../model/web/response";
+import { Failure, UserResponse } from "../model/web/response";
 import { UserRepository } from "../repository/user";
 import bcrypt from "bcrypt"
 
@@ -29,6 +29,11 @@ export class NewUserService implements UserService {
     async Login(req: UserLogin): Promise<UserResponse> {
         try {
             const data = await this.repository.Login(req)
+            const matchPassword = bcrypt.compare(data.password, req.password)
+
+            if (!matchPassword) {
+                throw new Error("password not matched")
+            }
             const response: UserResponse = {
                 name: data.name,
                 id: data.id,
