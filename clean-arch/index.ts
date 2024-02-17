@@ -18,23 +18,25 @@ import { NewUserService } from "./src/service/user"
 import { NewUserHandler } from "./src/handler/user"
 import { UserRouter } from "./src/route/user"
 import { CORSMiddleware } from "./src/middleware/cors"
+import { Tracer, trace } from "@opentelemetry/api"
 
 const app: express.Application = express()
 const prisma = PrismaClient()
 const CorsMiddlewae = new CORSMiddleware()
+const tracer: Tracer = trace.getTracer("clean-arch-monitoring", "1.0.0")
 
 const eventRepository = new NewEventRepository(prisma)
-const eventService = new NewEventService(eventRepository)
+const eventService = new NewEventService(eventRepository, tracer)
 const eventHandler = new NewEventHandler(eventService)
 const eventRoute = new EventRouter(eventHandler, app)
 
 const commentRepository = new NewCommentRepository(prisma)
-const commentService = new NewCommentService(commentRepository)
+const commentService = new NewCommentService(commentRepository, tracer)
 const commentHandler = new NewCommentHandler(commentService)
 const commentRoute = new CommentRouter(commentHandler, app)
 
 const categoryRepository = new NewCategoryRepository(prisma)
-const categoryService = new NewCategoryService(categoryRepository)
+const categoryService = new NewCategoryService(categoryRepository, tracer)
 const categoryHandler = new NewCategoryHandler(categoryService)
 const categoryRoute = new CategoryRoute(categoryHandler, app)
 
